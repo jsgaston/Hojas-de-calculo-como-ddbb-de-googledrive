@@ -1,16 +1,19 @@
-name: Descargar hojas de cálculo
+name: Descargar hojas de cálculo y actualizar repo
 
 on:
   schedule:
-    - cron: '0 8 */2 * *'  # Cada 2 días a las 08:00 UTC
-  workflow_dispatch:       # También puedes ejecutarlo manualmente
+    - cron: '0 6 */2 * *'  # Cada 2 días a las 06:00 UTC
+  workflow_dispatch:       # También lo puedes ejecutar manualmente
 
 jobs:
   actualizar:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
-      - name: Clonar el repositorio
+      - name: Clonar repositorio
         uses: actions/checkout@v4
 
       - name: Configurar Python
@@ -23,13 +26,3 @@ jobs:
 
       - name: Ejecutar script de descarga
         run: python descargar_hojas.py
-
-      - name: Hacer commit y push
-        run: |
-          git config user.name "jsgaston"
-          git config user.email "jsgastoniriartecabrera@gmail.com"
-          git add .
-          git commit -m "Actualización automática de hojas de cálculo"
-          git push
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
