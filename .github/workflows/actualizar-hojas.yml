@@ -2,7 +2,7 @@ name: Descargar hojas de cálculo y actualizar repo
 
 on:
   schedule:
-    - cron: '0 6 */2 * *'  # Cada 2 días a las 06:00 UTC
+    - cron: '0 */6 * * *'   # Cada 2 días a las 06:00 UTC
   workflow_dispatch:       # También lo puedes ejecutar manualmente
 
 jobs:
